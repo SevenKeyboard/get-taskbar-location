@@ -17,13 +17,15 @@ class VersionManager_getTaskbarLocation
     static _ := VersionManager_getTaskbarLocation._init()
     _init()    {
         global
-        GETTASKBARLOCATION_VERSION := "1.0.0"
+        GETTASKBARLOCATION_VERSION := "1.0.1"
     }
 }
 getTaskbarLocation()    {
-    regRead stuckRects3, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3, Settings
-    if (errorLevel)
+    try  {
+        regRead stuckRects3, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3, Settings
+    }  catch  {
         return "Bottom"
+    }
     switch (subStr(stuckRects3,25,2))
     {
         case 0:     return "Left"
